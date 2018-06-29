@@ -1,0 +1,10 @@
+# Genero llave privada NO ENCRIPTADA
+openssl genrsa -out key.pem
+# Genero llave publica
+openssl rsa -in key.pem -out key.pub -pubout
+# Formate de RSA que "entiende" java
+openssl pkcs8 -in privatekey.pem -topk8 -nocrypt -out privatekey-pkcs8.pem
+# Encriptar elemento
+openssl rsautl -in prueba.txt -out prueba-encriptada.enc -pubin -inkey public.pem -encrypt
+# Desencriptar
+openssl rsautl -in prueba-encriptada.enc -out prueba.txt -inkey private.pem -decrypt
