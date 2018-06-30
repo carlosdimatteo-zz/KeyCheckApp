@@ -20,6 +20,7 @@ public class Main {
 		
 		Connector connector = tomcat.getConnector();
 		connector.setURIEncoding("UTF-8");
+		connector.setMaxPostSize(5000000);
 		
 		try {
 			context = tomcat.addWebapp("/", System.getProperty("user.dir") + web);
@@ -30,8 +31,10 @@ public class Main {
 		Tomcat.addServlet(context, "ServletMaster", new ServletMaster());
 		context.addServletMappingDecoded("/test", "ServletMaster");
 		
+		context.setAllowCasualMultipartParsing(true);
+		
 		tomcat.start();
-		System.out.println("IS ON BABY");
+		System.out.println("IT'S ON BABY");
 	    tomcat.getServer().await();
 	}
 

@@ -17,7 +17,7 @@ public class Main {
 		
 //		String file = FileUtils.readFileToString(new File("prueba.txt"), StandardCharsets.UTF_8);
 		String file = RWUtils.readFileToString("prueba.txt", StandardCharsets.UTF_8);
-		System.out.println(file);
+		System.out.println("file in string format"+file);
 		
 		PublicKey publicKey = KeysUtils.loadPublicKey("keys/public.pem");
 		PrivateKey privateKey = KeysUtils.loadPrivateKey("keys/private-pkcs8.pem");
