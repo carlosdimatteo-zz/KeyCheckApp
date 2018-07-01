@@ -13,8 +13,8 @@ public class KeyPair {
 	
 	private KeyPair(String privatePath, String publicPath) {
 		try {
-			keys.put("private", KeysUtils.loadPrivateKey("s"));
-			keys.put("public", KeysUtils.loadPublicKey("s"));	
+			keys.put("private", KeysUtils.loadPrivateKey(privatePath));
+			keys.put("public", KeysUtils.loadPublicKey(publicPath));	
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
