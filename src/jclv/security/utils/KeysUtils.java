@@ -14,7 +14,7 @@ public class KeysUtils {
 	
 
 	public static PublicKey loadPublicKey(String path) throws InvalidKeySpecException, NoSuchAlgorithmException, IOException {
-		String publicKeyPem = RWUtils.readFileToString(path, StandardCharsets.UTF_8);
+		String publicKeyPem = RWUtils.readFileAsString(path, StandardCharsets.UTF_8);
 		
 		publicKeyPem = publicKeyPem.replace("-----BEGIN PUBLIC KEY-----", "")
 								   .replace("-----END PUBLIC KEY-----", "")
@@ -27,7 +27,7 @@ public class KeysUtils {
 	}
 	
 	public static PrivateKey loadPrivateKey(String path) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-		String privateKeyPem = RWUtils.readFileToString(path, StandardCharsets.UTF_8);
+		String privateKeyPem = RWUtils.readFileAsString(path, StandardCharsets.UTF_8);
 
 	    privateKeyPem = privateKeyPem.replace("-----BEGIN PRIVATE KEY-----", "")
 						             .replace("-----END PRIVATE KEY-----", "")

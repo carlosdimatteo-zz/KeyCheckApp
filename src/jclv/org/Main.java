@@ -7,6 +7,8 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 
+import jclv.security.KeyPair;
+
 public class Main {
 	
 	public static void main(String[] args) throws LifecycleException {
@@ -26,15 +28,18 @@ public class Main {
 			context = tomcat.addWebapp("/", System.getProperty("user.dir") + web);
 		} catch(ServletException e) {
 			e.printStackTrace();
-		}
-		
+		}		
+		// Servlets
 		Tomcat.addServlet(context, "ServletMaster", new ServletMaster());
 		context.addServletMappingDecoded("/test", "ServletMaster");
 		
+		// Configs
 		context.setAllowCasualMultipartParsing(true);
 		
+		// Init
+		KeyPair.getInstance("keys/private-pkcs8.pem", "keys/public.pem");
+		
 		tomcat.start();
-		System.out.println("IT'S ON BABY");
 	    tomcat.getServer().await();
 	}
 

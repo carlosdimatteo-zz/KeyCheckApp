@@ -13,9 +13,14 @@ public class RWUtils {
 		fileOutput.close();
 	}
 	
-	public static String readFileToString(String path, Charset encoding) throws IOException {
+	public static String readFileAsString(String path, Charset encoding) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
 		return new String(encoded, encoding);
+	}
+	
+	public static byte[] readFileAsByte(String path) throws IOException {
+		byte[] encoded = Files.readAllBytes(Paths.get(path));
+		return encoded;
 	}
 	
 }

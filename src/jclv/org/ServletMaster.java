@@ -8,8 +8,10 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.bind.DatatypeConverter;
 
+import jclv.security.KeyPair;
 import jclv.security.utils.AssymetricEncryptUtils;
 import jclv.security.utils.KeysUtils;
 import jclv.security.utils.RWUtils;
@@ -34,8 +37,14 @@ public class ServletMaster extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		String fileName = req.getParameter("filename");
+		System.out.println(fileName);
 		PrintWriter out = res.getWriter();
-		out.print("{\"status\":200,\"res\":\"TEST/SERVLET\"}");
+		String decryptedFile = RWUtils.readFileAsString(System.getProperty("user.dir") + "\\uploads\\decrypted\\" + fileName, StandardCharsets.UTF_8);
+		System.out.println(decryptedFile);
+		
+		out.print("{\"status\":200,\"res\":\"" + decryptedFile + "\"}");
 	}
 	
 	@Override
@@ -44,6 +53,8 @@ public class ServletMaster extends HttpServlet {
 		Part file = req.getPart("file");
 		InputStream filecontent = file.getInputStream();
 		OutputStream os = null;
+		PrintWriter out = res.getWriter();
+		
 		try {
 			String baseDir = System.getProperty("user.dir")+"\\uploads\\encrypted\\";
 			os = new FileOutputStream(baseDir + "/" + this.getFileName(file));
@@ -52,60 +63,41 @@ public class ServletMaster extends HttpServlet {
 
 			while ((read = filecontent.read(bytes)) != -1) {
 				System.out.println("Writing file to location");
-				os.write(bytes, 0, read);
-				
+				os.write(bytes, 0, read);		
 			}
+			this.decryptFile(this.getFileName(file));
 			
-			
-			
-		} catch (Exception e) {
+			out.print("{\"status\":200,\"res\":\"file/uploaded\"}");
+		
+		} catch (Exception e) {				
 			e.printStackTrace();
+			out.print("{\"status\":200,\"res\":\"Some/error\"}");
 		} finally {
 			if (filecontent != null) {
 				System.out.println("Closed File Content");
 				filecontent.close();
 			}
 			if (os != null) {
-				System.out.println("closed Output Stream");
+				System.out.println("Closed Output Stream");
 				os.close();
-			}
-			this.decryptFile(file , res);
-			PrintWriter out = res.getWriter();
-			out.print("{\"status\":200,\"res\":\"file/decrypted\"}");
+			}			
 		}
 
 	}
 	
-	private void decryptFile(Part file,HttpServletResponse res) {
-		try{
-			System.out.println("file name: "+this.getFileName(file));
-			System.out.println("Decrypting file ");
-//			String file = FileUtils.readFileToString(new File("prueba.txt"), StandardCharsets.UTF_8);
-			byte[] encryptedFile = Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"/uploads/encrypted/"+this.getFileName(file)));
-			System.out.println("encrypted: " + encryptedFile);
-			
-//			PublicKey publicKey = KeysUtils.loadPublicKey("keys/public.pem");
-			PrivateKey privateKey = KeysUtils.loadPrivateKey("keys/private-pkcs8.pem");
-			System.out.println("private key: "+privateKey);
-			// Encripto la variable TEXT con la llave publica
-//			byte[] encrypted = AssymetricEncryptUtils.Encrypt(publicKey, encryptedFile);
-			
-			// La desencripto con la llave privada
-			byte[] decrypted = AssymetricEncryptUtils.Decrypt(privateKey, encryptedFile);
-			
-			RWUtils.writeBytesToFile(decrypted, "uploads/decrypted/"+this.getFileName(file));
-//			RWUtils.writeBytesToFile(encrypted, "uploads/encrypted/prueba.txt");
-			
-			System.out.println("Clear text: " + encryptedFile);
-//			System.out.println("Encrypted: " + Base64.getEncoder().encodeToString(encrypted));
-			System.out.println("Descrypted: " + new String(decrypted, StandardCharsets.UTF_8));
-			PrintWriter out = res.getWriter();
-			out.print("{\"status\":200,\"res\":\"file/decrypted\"}");
-			}catch(Exception e) {
-				e.printStackTrace();
-				
-			}
-		}
+	private void decryptFile(String encryptedFileName) throws Exception {
+		
+		System.out.println("File name: " + encryptedFileName);
+		byte[] encryptedFile = RWUtils.readFileAsByte(System.getProperty("user.dir")+"/uploads/encrypted/" + encryptedFileName);						
+		System.out.println("Encrypted: " + encryptedFile);
+		
+		PrivateKey privateKey = KeyPair.getPrivateKey();
+		System.out.println("Private key: " + privateKey);	
+		byte[] decrypted = AssymetricEncryptUtils.Decrypt(privateKey, encryptedFile);
+		System.out.println("Decrypted: " + decrypted);
+		RWUtils.writeBytesToFile(decrypted, "uploads/decrypted/" + encryptedFileName);			
+		
+	}
 	
 	
 	private String getFileName(Part part) {
