@@ -63,7 +63,6 @@ public class ServletMaster extends HttpServlet {
 				System.out.println("Symmetric encrypt");
 				HashMap<String,String> filesName = new HashMap<String,String>();
 				for(Part file: files) {
-//					PublicKey pk = null; // Se inicializa la variable 
 					saveFile(file);
 					String fileName = this.getFileName(file);
 					
