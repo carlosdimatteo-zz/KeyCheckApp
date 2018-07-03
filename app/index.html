@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>KEYAPP</title>
+    <title>KeyApp</title>
 </head>
-<body>
-    <h1>Upload an encrypted file </h1>
+<body> 
+    <h1>Upload an encrypted file</h1>
+   
+	<input type="file" multiple id="files"/> 
+	<button onclick="upload()">
+		Subir Archivos
+	</button>
+	<h3 id="status"></h3>
+	
+	<!--
     <input type="file" id="file"/> <button onclick="upload()">Upload</button>
-        <h3 id="uploadStatus">--</h3>
-    
+    <h3 id="uploadStatus">--</h3> -->
+     
     <button onclick="fetchDecryptedFile()"> GET DECRYTED FILE </button>
 
     <script src="./app.js"></script>

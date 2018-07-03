@@ -5,7 +5,7 @@ import java.security.PublicKey;
 
 import javax.crypto.Cipher;
 
-public class AssymetricEncryptUtils {
+public class AsymmetricEncryptUtils {
 	
 	public static byte[] Encrypt(PublicKey pk, String message) throws Exception {
 		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
