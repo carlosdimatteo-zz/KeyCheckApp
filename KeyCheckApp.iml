@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="file:///SivaJS/jars/tomcat-embed/tomcat-embed-core.jar" />
+    <libelement value="jar://$MODULE_DIR$/jars/tomcat-dbcp.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/tomcat-embed-core.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/tomcat-embed-el.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/tomcat-embed-jasper.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/tomcat-embed-logging-juli.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/tomcat-embed-logging-log4j.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/tomcat-embed-websocket.jar!/" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module-library">
+      <library name="tomcat-embed-core.jar">
+        <CLASSES>
+          <root url="file:///SivaJS/jars/tomcat-embed/tomcat-embed-core.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tomcat-dbcp.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jars/tomcat-dbcp.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jars/tomcat-embed-core.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jars/tomcat-embed-core.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tomcat-embed-el.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jars/tomcat-embed-el.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tomcat-embed-jasper.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jars/tomcat-embed-jasper.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tomcat-embed-logging-juli.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jars/tomcat-embed-logging-juli.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tomcat-embed-logging-log4j.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jars/tomcat-embed-logging-log4j.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tomcat-embed-websocket.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jars/tomcat-embed-websocket.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
