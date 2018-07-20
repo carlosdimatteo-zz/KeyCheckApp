@@ -66,8 +66,9 @@ public class ServletMaster extends HttpServlet {
 				// SYMMETRIC ENCRYPT
 				System.out.println("symmetric encrypt");
 				Part file = files.iterator().next();
-				this.saveFile(file);
+//				this.saveFile(file);
 				String fileName = this.getFileName(file);
+					System.out.println("incoming file name: "+fileName);
 //				this.decryptWithPrivateKey(fileName);
 				this.decryptWithPublicKey(fileName);
 //				
@@ -131,8 +132,9 @@ public class ServletMaster extends HttpServlet {
 		System.out.println("File name: " + encryptedFileName);
 		File encryptedFile = new File(System.getProperty("user.dir")+"/uploads/encrypted/" + encryptedFileName);						
 		System.out.println("Encrypted: " + encryptedFile);
-		File decryptedFile = new File("uploads/decrypted/"+encryptedFileName);
-		SymmetricEncryptUtils.decrypt("llave publica #1", encryptedFile,decryptedFile);
+		File decryptedFile = new File("uploads/decrypted/document.dec");
+		System.out.println("decrypted: "+decryptedFile);
+		SymmetricEncryptUtils.decrypt("?3?zlN?zFsO6?", encryptedFile,decryptedFile);
 	}
 	
 	
