@@ -1,5 +1,6 @@
 package jclv.org;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,8 +28,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.bind.DatatypeConverter;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_COLOR_BURNPeer;
+
 import jclv.security.KeyPair;
 import jclv.security.utils.AsymmetricEncryptUtils;
+import jclv.security.utils.SymmetricEncryptUtils;
 import jclv.security.utils.KeysUtils;
 import jclv.security.utils.RWUtils;
 
@@ -62,10 +66,11 @@ public class ServletMaster extends HttpServlet {
 				// SYMMETRIC ENCRYPT
 				System.out.println("symmetric encrypt");
 				Part file = files.iterator().next();
-				this.saveFile(file);
+//				this.saveFile(file);
 				String fileName = this.getFileName(file);
+					System.out.println("incoming file name: "+fileName);
 //				this.decryptWithPrivateKey(fileName);
-				this.decryptWithPublicKey(fileName)
+				this.decryptWithPublicKey(fileName);
 //				
 			} else {
 				// SYMETRIC ENCRYPT				
@@ -117,10 +122,19 @@ public class ServletMaster extends HttpServlet {
 		byte[] encryptedFile = RWUtils.readFileAsByte(System.getProperty("user.dir")+"/uploads/encrypted/" + encryptedFileName);						
 		System.out.println("Encrypted: " + encryptedFile);
 		PrivateKey privateKey = KeyPair.getPrivateKey();
-		System.out.println("Private key: " + privateKey);	
+		System.out.println("Private key: " + privateKey);
 		byte[] decrypted = AsymmetricEncryptUtils.Decrypt(privateKey, encryptedFile);
 		System.out.println("Decrypted: " + decrypted);
 		RWUtils.writeBytesToFile(decrypted, "uploads/decrypted/" + encryptedFileName);
+	}
+	
+	private void decryptWithPublicKey(String encryptedFileName) throws Exception {
+		System.out.println("File name: " + encryptedFileName);
+		File encryptedFile = new File(System.getProperty("user.dir")+"/uploads/encrypted/" + encryptedFileName);						
+		System.out.println("Encrypted: " + encryptedFile);
+		File decryptedFile = new File("uploads/decrypted/document.dec");
+		System.out.println("decrypted: "+decryptedFile);
+		SymmetricEncryptUtils.decrypt("?3?zlN?zFsO6?", encryptedFile,decryptedFile);
 	}
 	
 	
