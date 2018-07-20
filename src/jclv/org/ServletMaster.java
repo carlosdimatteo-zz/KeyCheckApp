@@ -58,34 +58,36 @@ public class ServletMaster extends HttpServlet {
 		PrintWriter out = response.getWriter();		
 		
 		try {
-			if(files.size() > 1) {
-				// SYMETRIC ENCRYPT				
-				System.out.println("Symmetric encrypt");
-				HashMap<String,String> filesName = new HashMap<String,String>();
-				for(Part file: files) {
-					saveFile(file);
-					String fileName = this.getFileName(file);
-					
-					if(fileName.endsWith(".pem")) {						
-						System.out.println("ES LA CLAVE");
-						filesName.put("publicKey", fileName);
-					} else {
-						System.out.println("ES EL ARCHIVO ENCRIPTADO");
-						filesName.put("encryptedFile", fileName);
-					}
-					
-				}
-				System.out.println(filesName.get("publicKey"));
-				System.out.println(filesName.get("encryptedFile"));
-//				PublicKey pk = uploadPublicKey(fileNames.get("publicKey")); // Subir la key con el nombre.
-//				this.descryptWithPublicKey(publicKey, fileNames.get("encryptedFile")); // Desencriptar con la key obtenida
-			} else {
-				// ASSYMETRIC ENCRYPT
-				System.out.println("Asymmetric encrypt");
+			if(files.size() == 1) {
+				// SYMMETRIC ENCRYPT
+				System.out.println("symmetric encrypt");
 				Part file = files.iterator().next();
 				this.saveFile(file);
 				String fileName = this.getFileName(file);
-				this.decryptWithPrivateKey(fileName);
+//				this.decryptWithPrivateKey(fileName);
+				this.decryptWithPublicKey(fileName)
+//				
+			} else {
+				// SYMETRIC ENCRYPT				
+//				System.out.println("Symmetric encrypt");
+//				HashMap<String,String> filesName = new HashMap<String,String>();
+//				for(Part file: files) {
+//					saveFile(file);
+//					String fileName = this.getFileName(file);
+//					
+//					if(fileName.endsWith(".pem")) {						
+//						System.out.println("ES LA CLAVE");
+//						filesName.put("publicKey", fileName);
+//					} else {
+//						System.out.println("ES EL ARCHIVO ENCRIPTADO");
+//						filesName.put("encryptedFile", fileName);
+//					}
+//					
+//				}
+//				System.out.println(filesName.get("publicKey"));
+//				System.out.println(filesName.get("encryptedFile"));
+////				PublicKey pk = uploadPublicKey(fileNames.get("publicKey")); // Subir la key con el nombre.
+////				this.descryptWithPublicKey(publicKey, fileNames.get("encryptedFile")); // Desencriptar con la key obtenida
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
