@@ -7,8 +7,6 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 
-import jclv.security.KeyPair;
-
 public class Main {
 	
 	public static void main(String[] args) throws LifecycleException {
@@ -37,7 +35,7 @@ public class Main {
 		context.setAllowCasualMultipartParsing(true);
 		
 		// Init
-		KeyPair.getInstance("keys/private-pkcs8.pem", "keys/public.pem");
+		// KeyPair.getInstance("keys/private-pkcs8.pem", "keys/public.pem");
 		
 		tomcat.start();
 	    tomcat.getServer().await();
